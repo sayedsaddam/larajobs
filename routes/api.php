@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ListingApi;
 use App\Http\Controllers\Api\UserApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,8 @@ Route::prefix('users')
         Route::put('/{user}', [UserApi::class, 'update'])->name('update');
         Route::delete('/{user}', [UserApi::class, 'destroy'])->name('destroy');
     });
+
+Route::get('listings', [ListingApi::class, 'index']);
 
 Route::get('/posts', function(){
     return response()->json([
