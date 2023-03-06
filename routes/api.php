@@ -27,12 +27,23 @@ Route::prefix('users')
         Route::delete('/{user}', [UserApi::class, 'destroy'])->name('destroy');
     });
 
-Route::get('listings', [ListingApi::class, 'index']);
+Route::prefix('listings')
+    ->name('listings.')
+    ->group(function(){
+        Route::get('/', [ListingApi::class, 'index']);
+        Route::post('/', [ListingApi::class, 'store'])->name('store');
+        Route::get('/{listing}', [ListingApi::class, 'show'])->name('show');
+        Route::put('/{listing}', [ListingApi::class, 'update'])->name('update');
+        Route::delete('/{listing}', [ListingApi::class, 'destroy'])->name('destroy');
+    });
 
 Route::get('/posts', function(){
     return response()->json([
         'posts' => [
-            'title' => 'Post one'
+            'id' => 1,
+            'title' => 'Post one',
+            'slug' => 'post-one',
+            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nihil, repudiandae aut fugiat quae quod architecto molestiae laborum placeat vel incidunt delectus tempore corporis beatae nulla soluta quidem aliquid iure.'
         ]
     ]);
 });
